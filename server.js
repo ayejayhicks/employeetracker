@@ -14,7 +14,6 @@ connection.connect((err) => {
     if (err) throw err;
     console.log("Success!");
     start();
-
 });
 
 const addDept = () => {
@@ -109,7 +108,6 @@ function start() {
         const choice = answer.options;
 
         switch (choice) {
-
             case 'Add a department?':
                 console.log('ADD A DEPARTMENT==========')
                 addDept()

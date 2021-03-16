@@ -9,7 +9,7 @@ I want to be able to view and manage the departments, roles, and employees in my
 So that I can organize and plan my business
 
 ## Challenges and Successes
-
+Understanding file structure has been a challenge for me lately. To overcome this hurdle I revisit past assignments to try to understand the purpose of each file being used. Continuing into this week I broke each step of the ReadMe down and worked on one part of the assignment at a time. This helped with organization, processing and time management.  
 
 ## Technologies Used
 Node.js  
