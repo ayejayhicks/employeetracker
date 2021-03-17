@@ -22,7 +22,12 @@ const addDept = () => {
         message: 'What department are you adding?',
         name: 'newDepartmentName'
     }).then(answer => {
-        console.log(`You haved added a new department named ${answer.newDepartmentName}`)
+        //use mysql to insert a new department record using answer.newDepartmentName
+        //INSERT INTO department (name) VALUE ("Sales");
+        //HINT: we need to use '?' placeholders for this one
+        console.log(`You haved added a new department named ${answer.newDepartmentName}`);
+        //make sure 'start()' is the last thing that happens in this .then();
+        start();
     }
     )
 
@@ -32,7 +37,8 @@ const addDept = () => {
         message: 'What role are you adding?',
         name: 'newRole'
     }).then(answer => {
-        console.log(`You haved added a new role ${answer.newRole}`)
+        console.log(`You haved added a new role ${answer.newRole}`);
+        start();
     }
     )
 
@@ -42,47 +48,76 @@ const addDept = () => {
         message: 'Which employee would you like to add?',
         name: 'newEmployee'
     }).then(answer => {
-        console.log(`You haved added a new employee ${answer.newEmployee}`)
+        console.log(`You haved added a new employee ${answer.newEmployee}`);
+        start();
     }
     )
 
-};  const viewDepts = () => {
-    inquirer.prompt({
-        type: 'input',
-        message: 'Which department would you like to view?',
-        name: 'viewDept'
-    }).then(answer => {
-        console.log(`You haved viewed a department ${answer.viewDept}`)
-    }
-    )
+}; const viewDepts = () => {
+    //use mysql to query the department table for all departments currently in the db, then display those departments in the console
+    connection.query('SELECT * FROM department', (err, results) => {
+        if (err) throw err;
+        //TODO: make this look prettier
+        console.log(results);
+        start();
+    })
 
-};  const viewRoles = () => {
-    inquirer.prompt({
-        type: 'input',
-        message: 'Which roles would you like to view?',
-        name: 'viewRole'
-    }).then(answer => {
-        console.log(`You haved viewed a role ${answer.viewRole}`)
-    }
-    )
+}; const viewRoles = () => {
+    connection.query('SELECT * FROM role', (err, results) => {
+        if (err) throw err;
+        //TODO: make this look prettier
+        console.log(results);
+        start();
+    })
 
-};  const viewAllEmps = () => {
-    inquirer.prompt({
-        type: 'input',
-        message: 'Which employee would you like to view?',
-        name: 'viewEmployee'
-    }).then(answer => {
-        console.log(`You haved viewed an employee ${answer.viewEmployee}`)
-    }
-    )
+}; const viewAllEmps = () => {
+    connection.query('SELECT * FROM employees', (err, results) => {
+        if (err) throw err;
+        //TODO: make this look prettier
+        console.log(results);
+        start();
+    })
+}
 
-};  const updateRoles = () => {
+    // inquirer.prompt({
+    //     type: 'input',
+    //     message: 'Which department would you like to view?',
+    //     name: 'viewDept'
+    // }).then(answer => {
+    //     console.log(`You haved viewed a department ${answer.viewDept}`)
+    //     start();
+    // });
+
+// };  
+//     inquirer.prompt({
+//         type: 'input',
+//         message: 'Which roles would you like to view?',
+//         name: 'viewRole'
+//     }).then(answer => {
+//         console.log(`You haved viewed a role ${answer.viewRole}`);
+//         start();
+//     }
+//     )
+
+// };  
+//     inquirer.prompt({
+//         type: 'input',
+//         message: 'Which employee would you like to view?',
+//         name: 'viewEmployee'
+//     }).then(answer => {
+//         console.log(`You haved viewed an employee ${answer.viewEmployee}`);
+//         start();
+//     }
+//     )
+
+const updateRoles = () => {
     inquirer.prompt({
         type: 'input',
         message: 'Which role would you like to update?',
         name: 'updateRole'
     }).then(answer => {
-        console.log(`You haved updated a role ${answer.updateRole}`)
+        console.log(`You haved updated a role ${answer.updateRole}`);
+        start();
     }
     )
 }
@@ -101,6 +136,7 @@ function start() {
                 "View all roles?",
                 "View all employees?",
                 "Update an employees role?",
+                "Exit"
             ]
         }
     ]).then((answer) => {
@@ -112,7 +148,6 @@ function start() {
                 console.log('ADD A DEPARTMENT==========')
                 addDept()
                 break;
-
 
             case 'Add a role?':
                 console.log('ADD A ROLE==========')
@@ -145,53 +180,11 @@ function start() {
                 updateRoles()
                 break;
 
+            case 'Exit':
+                process.exit();
+
             default:
                 start();
         }
     })
 }
-
-//If
-/*
-  if() {
-      //do something if true
-  }
- */
-
-  //Else if
-
-/*  if(){
-
- } else if () {
-
- } else if() {
-
- }
-*/
-
-// If else
-
-/*   if() {
-
-  } else {
-
-  } */
-
-
-//Switch
-/*
-switch(value) {
-
-    case 'Some Value' :
-        //do this
-        break;
-
-
-    case 'some other value':
-        //do this other thing
-        break;
-
-    default :
-        //fallthroguh
-
-} */
