@@ -74,7 +74,7 @@ const addDept = () => {
 
 // View all Employees
 }; const viewAllEmps = () => {
-    connection.query('SELECT * FROM employees', (err, results) => {
+    connection.query('SELECT * FROM employee', (err, results) => {
         if (err) throw err;
         //TODO: make this look prettier
         console.log(results);
