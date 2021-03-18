@@ -53,6 +53,7 @@ const addDept = () => {
     }
     )
 
+// View all Departments    
 }; const viewDepts = () => {
     //use mysql to query the department table for all departments currently in the db, then display those departments in the console
     connection.query('SELECT * FROM department', (err, results) => {
@@ -62,6 +63,7 @@ const addDept = () => {
         start();
     })
 
+// View all Roles
 }; const viewRoles = () => {
     connection.query('SELECT * FROM role', (err, results) => {
         if (err) throw err;
@@ -70,6 +72,7 @@ const addDept = () => {
         start();
     })
 
+// View all Employees
 }; const viewAllEmps = () => {
     connection.query('SELECT * FROM employees', (err, results) => {
         if (err) throw err;
