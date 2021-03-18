@@ -19,7 +19,7 @@ MySQL
 Javascript
 
 Links
-[Github] (https://github.com/ayejayhicks/employeetracker)
+[Github] (https://github.com/ayejayhicks/employeetracker)  
 [Screencastify] ()
 
 Screenshots
