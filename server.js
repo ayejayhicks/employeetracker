@@ -20,41 +20,65 @@ const addDept = () => {
     inquirer.prompt({
         type: 'input',
         message: 'What department are you adding?',
-        name: 'newDepartmentName'
+        name: 'name'
     }).then(answer => {
         //use mysql to insert a new department record using answer.newDepartmentName
-        //INSERT INTO department (name) VALUE ("Sales");
-        //HINT: we need to use '?' placeholders for this one
-        console.log(`You haved added a new department named ${answer.newDepartmentName}`);
+        connection.query('INSERT INTO department SET ?', answer)
+        // if (err) throw err;
+        console.log(`You haved added a new department named ${answer.name}`);
         //make sure 'start()' is the last thing that happens in this .then();
         start();
-    }
-    )
+        // return
+    })
 
 }; const addRole = () => {
-    inquirer.prompt({
-        type: 'input',
-        message: 'What role are you adding?',
-        name: 'newRole'
-    }).then(answer => {
-        console.log(`You haved added a new role ${answer.newRole}`);
-        start();
-    }
-    )
+    connection.query("SELECT role.title AS Title, role.salary AS Salary FROM role", function (err, res) {
+        inquirer.prompt([
+            {
+                type: 'input',
+                message: 'What role are you adding?',
+                name: 'title'
+            },
+            {
+                type: 'input',
+                message: 'What is the salary of the role?',
+                name: 'salary'
+            }
+        ]).then(function (res) {
+            connection.query('INSERT INTO role SET ?',
+                {
+                    title: res.Title,
+                    salary: res.Salary,
+                },
+                function (err) {
+                    if (err) throw err
+                    console.log(`You haved added a new role ${answer.name}`);
+                    start();
+                }
+            )
+        };
+    });
+  }     
 
 }; const addEmployee = () => {
     inquirer.prompt({
         type: 'input',
         message: 'Which employee would you like to add?',
-        name: 'newEmployee'
+        first: 'first_name',
+        last: 'last_name'
     }).then(answer => {
         console.log(`You haved added a new employee ${answer.newEmployee}`);
         start();
     }
     )
 
-// View all Departments    
-}; const viewDepts = () => {
+    // View all Departments    
+}; const allDepartments = () => {
+    return connection.query('SELECT department.id FROM department')
+}
+
+
+const viewDepts = () => {
     //use mysql to query the department table for all departments currently in the db, then display those departments in the console
     connection.query('SELECT * FROM department', (err, results) => {
         if (err) throw err;
@@ -63,7 +87,7 @@ const addDept = () => {
         start();
     })
 
-// View all Roles
+    // View all Roles
 }; const viewRoles = () => {
     connection.query('SELECT * FROM role', (err, results) => {
         if (err) throw err;
@@ -72,7 +96,7 @@ const addDept = () => {
         start();
     })
 
-// View all Employees
+    // View all Employees
 }; const viewAllEmps = () => {
     connection.query('SELECT * FROM employee', (err, results) => {
         if (err) throw err;
@@ -82,14 +106,14 @@ const addDept = () => {
     })
 }
 
-    // inquirer.prompt({
-    //     type: 'input',
-    //     message: 'Which department would you like to view?',
-    //     name: 'viewDept'
-    // }).then(answer => {
-    //     console.log(`You haved viewed a department ${answer.viewDept}`)
-    //     start();
-    // });
+// inquirer.prompt({
+//     type: 'input',
+//     message: 'Which department would you like to view?',
+//     name: 'viewDept'
+// }).then(answer => {
+//     console.log(`You haved viewed a department ${answer.viewDept}`)
+//     start();
+// });
 
 // };  
 //     inquirer.prompt({
