@@ -1,6 +1,7 @@
 const inquirer = require("inquirer")
 const mysql = require("mysql")
-const consoleTable = require('console.table');
+const consoleTable = require("console.table");
+var express = require("express");
 
 const connection = mysql.createConnection({
     host: "localhost",
@@ -203,7 +204,7 @@ function start() {
                 break;
 
             case 'Update an employees role?':
-                console.log('UPDATE AN EMPLOYEES ROLE======================')
+                console.log('UPDATE AN EMPLOYEES ROLE==========')
                 updateRoles()
                 break;
 
